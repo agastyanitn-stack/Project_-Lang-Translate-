@@ -1,0 +1,60 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #6a11cb, #2575fc); /* purple-blue */
+}
+
+/* Center white card */
+.container {
+    background-color: white;
+    width: 70%;
+    margin: 60px auto;
+    padding: 30px 40px;
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* Title */
+h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+/* Textarea */
+textarea {
+    width: 100%;
+    height: 140px;
+    background-color: #f2f2f2;  /* light gray */
+    border: none;
+    border-radius: 10px;
+    padding: 15px;
+    font-size: 15px;
+    outline: none;
+}
+
+/* Dropdown */
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    border-radius: 8px;
+}
+
+/* Button */
+button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: #eaeaea;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Output */
+.output {
+    margin-top: 20px;
+    font-size: 18px;
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Language Translator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>Language to English Translator</h1>
+
+    <form method="POST">
+        <textarea name="text" placeholder="Enter text here"></textarea>
+
+        <select name="language">
+            <option value="hi">Hindi</option>
+            <option value="mr">Marathi</option>
+            <option value="ta">Tamil</option>
+            <option value="or">Odia</option>
+            <option value="bn">Bengali</option>
+            <option value="gu">Gujarati</option>
+        </select>
+
+        <button type="submit">Translate</button>
+    </form>
+
+    {% if result %}
+    <div class="output">
+        <b>Translated Text:</b><br>
+        {{ result|safe }}
+    </div>
+    {% endif %}
+</div>
+
+</body>
+</html>

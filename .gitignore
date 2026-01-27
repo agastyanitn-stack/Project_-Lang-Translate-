@@ -1,0 +1,83 @@
+# Virtual Environment
+ml_env/
+venv/
+env/
+ENV/
+.venv
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Package Distribution
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Models (large files)
+models/
+*.safetensors
+*.bin
+*.pt
+*.pth
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+*.sublime-workspace
+*.sublime-project
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+
+# IPython
+.ipynb_checkpoints/
+*.ipynb
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Flask
+instance/
+.webassets-cache
+
+# Other
+.mypy_cache/
+.dmypy.json
+dmypy.json
