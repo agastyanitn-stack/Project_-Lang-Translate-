@@ -1,18 +1,22 @@
-# Virtual Environment
+# =========================
+# VIRTUAL ENVIRONMENTS
+# =========================
 ml_env/
 venv/
 env/
 ENV/
 .venv
+virtualenv/
 
-# Python Cache
+# =========================
+# PYTHON
+# =========================
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
-
-# Package Distribution
 build/
 develop-eggs/
 dist/
@@ -25,29 +29,88 @@ parts/
 sdist/
 var/
 wheels/
+pip-wheel-metadata/
+share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
 MANIFEST
 
-# Models (large files)
+# PyInstaller
+*.manifest
+*.spec
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# Unit test / coverage
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# =========================
+# LARGE FILES & MODELS
+# =========================
 models/
 *.safetensors
 *.bin
 *.pt
 *.pth
+*.onnx
+*.h5
+*.pkl
+*.joblib
+*.pickle
 
-# Environment variables
+# =========================
+# ENVIRONMENT VARIABLES
+# =========================
 .env
 .env.local
 .env.*.local
+*.secrets
 
-# IDE & Editor
+# =========================
+# IDE & EDITOR
+# =========================
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+*.code-workspace
+.project
+.pydevproject
+.settings/
+
+# =========================
+# OS
+# =========================
+.DS_Store
+Thumbs.db
+*.log
+*.pot
+
+# =========================
+# UPLOADS & TEMPORARY FILES
+# =========================
+uploads/
+tmp/
+temp/
+*.tmp
 .DS_Store
 Thumbs.db
 *.sublime-workspace

@@ -1,36 +1,188 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Language Translator</title>
+    <title>Text Summarizer</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
 <div class="container">
-    <h1>Language to English Translator</h1>
 
-    <form method="POST">
-        <textarea name="text" placeholder="Enter text here"></textarea>
+<div class="header-bar">
+    <h1>Text Summarizer</h1>
 
-        <select name="language">
-            <option value="hi">Hindi</option>
-            <option value="mr">Marathi</option>
-            <option value="ta">Tamil</option>
-            <option value="or">Odia</option>
-            <option value="bn">Bengali</option>
-            <option value="gu">Gujarati</option>
-        </select>
-
-        <button type="submit">Translate</button>
-    </form>
-
-    {% if result %}
-    <div class="output">
-        <b>Translated Text:</b><br>
-        {{ result|safe }}
-    </div>
-    {% endif %}
+    <button type="button" onclick="toggleDarkMode()" class="dark-btn" id="themeBtn">
+        🌙 Dark Mode
+    </button>
 </div>
+
+<form method="POST" enctype="multipart/form-data" onsubmit="showProgress()">
+
+<div class="glow-box">
+<div class="inner">
+<textarea id="inputText" name="text" placeholder="Enter text here"></textarea>
+</div>
+</div>
+
+<p id="wordCount">Words: 0</p>
+
+<br>
+
+<label><b>Upload PDF (optional)</b></label>
+<input type="file" name="pdf_file" accept=".pdf">
+
+<br><br>
+
+<div class="mode-row-left">
+    <div class="toggle-section">
+        <label>Offline</label>
+
+        <label class="switch">
+            <input type="checkbox" id="modeToggle" name="mode" value="online"
+            {% if translated %} checked {% endif %}>
+            <span class="slider"></span>
+        </label>
+
+        <label>Online</label>
+    </div>
+</div>
+
+<div id="languageBox" class="{% if translated %}show{% endif %}">
+    <select name="language">
+        <option value="hi">Hindi</option>
+        <option value="mr">Marathi</option>
+        <option value="ta">Tamil</option>
+        <option value="bn">Bengali</option>
+        <option value="gu">Gujarati</option>
+    </select>
+</div>
+
+<div id="progressBar" class="progress-bar" style="display:none;"></div>
+
+<button type="submit">Summarize</button>
+
+</form>
+
+{% if reduced_words is not none %}
+<div class="stats-row">
+
+<div class="circle-box">
+<div class="svg-circle-box">
+<svg viewBox="0 0 120 120" class="progress-ring">
+<circle cx="60" cy="60" r="48" class="ring-bg"/>
+<circle cx="60" cy="60" r="48"
+class="ring-progress"
+data-percent="{{ reduction_percent }}">
+</circle>
+</svg>
+<div class="circle-text" id="percentText">0%</div>
+</div>
+<p>Text Reduced</p>
+</div>
+
+<div class="circle-box">
+<div class="svg-circle-box">
+<svg viewBox="0 0 120 120" class="progress-ring">
+<circle cx="60" cy="60" r="48" class="ring-bg"/>
+<circle cx="60" cy="60" r="48"
+class="ring-progress reading-ring"
+data-percent="100">
+</circle>
+</svg>
+<div class="circle-text" id="timeText">{{ reading_time_saved }}m</div>
+</div>
+<p>Reading Time Saved</p>
+</div>
+
+<div class="reduction-box">
+Reduced words = {{ reduced_words }}
+</div>
+
+</div>
+{% endif %}
+
+{% if summary %}
+<h3>Summary (English):</h3>
+<p>{{ summary }}</p>
+{% endif %}
+
+{% if topics %}
+<h3>Detected Headings / Topics:</h3>
+<div class="topics-box">
+    {% for topic in topics %}
+        <span class="topic-chip">{{ topic }}</span>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if translated %}
+<h3>Translated Summary:</h3>
+<p>{{ translated }}</p>
+{% endif %}
+
+</div>
+
+<script>
+const toggle = document.getElementById("modeToggle");
+const languageBox = document.getElementById("languageBox");
+
+if(toggle){
+    toggle.addEventListener("change", function () {
+        if (toggle.checked) languageBox.classList.add("show");
+        else languageBox.classList.remove("show");
+    });
+}
+
+function toggleDarkMode(){
+    document.body.classList.toggle("dark-mode");
+
+    const btn = document.getElementById("themeBtn");
+
+    if(document.body.classList.contains("dark-mode")){
+        btn.innerHTML = "☀️ Light Mode";
+    } else {
+        btn.innerHTML = "🌙 Dark Mode";
+    }
+}
+
+function showProgress(){
+    document.getElementById("progressBar").style.display="block";
+}
+
+const textarea = document.getElementById("inputText");
+const wordCount = document.getElementById("wordCount");
+
+if(textarea){
+textarea.addEventListener("input", function(){
+    let words = textarea.value.trim().split(/\s+/).filter(w => w.length>0);
+    wordCount.innerText = "Words: " + words.length;
+});
+}
+
+window.addEventListener("load", function () {
+
+    const rings = document.querySelectorAll(".ring-progress");
+
+    rings.forEach(ring => {
+        const percent = parseInt(ring.getAttribute("data-percent")) || 0;
+        const radius = 48;
+        const circumference = 2 * Math.PI * radius;
+
+        ring.style.strokeDasharray = circumference;
+        ring.style.strokeDashoffset = circumference;
+
+        setTimeout(() => {
+            const offset = circumference - (percent/100) * circumference;
+            ring.style.strokeDashoffset = offset;
+        }, 300);
+    });
+
+    const percentText = document.getElementById("percentText");
+    if(percentText){
+        percentText.innerText = "{{ reduction_percent|default(0) }}%";
+    }
+});
+</script>
 
 </body>
 </html>
